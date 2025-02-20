@@ -62,4 +62,4 @@ fastlane/screenshots/**/*.png
 fastlane/test_output
 
 # Exclude compiled binaries
-Coffee.app/Contents/MacOS/*
+Coffee.app/Contents/MacOS/Coffee
