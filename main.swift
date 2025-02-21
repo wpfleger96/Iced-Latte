@@ -12,6 +12,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.image = NSImage(systemSymbolName: "bolt.fill", accessibilityDescription: "Iced Latte")
         }
         constructMenu()
+
+        // Auto enable at app startup
+        isIcedLatteEnabled = true
+        startTimer()
+        updateMenuTitle("Disable Iced Latte")
+
         // Force the first simulated keypress after app starts instead of waiting for the timer,
         // so that the user is prompted immediately to grant accessibility permissions.
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
