@@ -4,20 +4,24 @@ import Foundation
 class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem!
     var timer: Timer?
-    var isCoffeeEnabled = false
+    var isIcedLatteEnabled = false
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        // Create the status bar item
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         if let button = statusItem.button {
-            button.image = NSImage(systemSymbolName: "bolt.fill", accessibilityDescription: "Coffee")
+            button.image = NSImage(systemSymbolName: "bolt.fill", accessibilityDescription: "Iced Latte")
         }
         constructMenu()
+        // Force the first simulated keypress after app starts instead of waiting for the timer,
+        // so that the user is prompted immediately to grant accessibility permissions.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.simulateKeyPress()
+        }
     }
 
     func constructMenu() {
         let menu = NSMenu()
-        let toggleItem = NSMenuItem(title: "Enable Coffee", action: #selector(toggleCoffee), keyEquivalent: "")
+        let toggleItem = NSMenuItem(title: "Enable Iced Latte", action: #selector(toggleIcedLatte), keyEquivalent: "")
         toggleItem.target = self
         menu.addItem(toggleItem)
         menu.addItem(NSMenuItem.separator())
@@ -27,14 +31,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem.menu = menu
     }
 
-    @objc func toggleCoffee() {
-        isCoffeeEnabled.toggle()
-        if isCoffeeEnabled {
+    @objc func toggleIcedLatte() {
+        isIcedLatteEnabled.toggle()
+        if isIcedLatteEnabled {
             startTimer()
-            updateMenuTitle("Disable Coffee")
+            updateMenuTitle("Disable Iced Latte")
         } else {
             stopTimer()
-            updateMenuTitle("Enable Coffee")
+            updateMenuTitle("Enable Iced Latte")
         }
     }
 

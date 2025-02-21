@@ -1,16 +1,29 @@
-# coffee
+# Iced-Latte
 
-A replacement for [caffeine](https://www.caffeine-app.net/) MacOS app
+A replacement for the [caffeine](https://www.caffeine-app.net/) MacOS app
 
-## Build
-From the root of the repo:
-```bash
-xcrun swiftc -o Coffee.app/Contents/MacOS/Coffee main.swift -framework Cocoa
-open Coffee.app
+## Requirements
+- MacOS Sequoia 15.3 or later
+- `xcrun` via XCode commmand line tools:
+```sh
+xcode-select --install
 ```
 
-## Install
-From the root of the repo:
-```bash
-osascript -e 'tell application "System Events" to make login item at end with properties {name:"Coffee", path:"/path/to/Coffee.app", hidden:false}'
+## Setup
+
+### Build
+First build the app from source using the following command from the root of the repo:
+```sh
+xcrun swiftc -o Iced-Latte.app/Contents/MacOS/Iced-Latte main.swift -framework Cocoa
+```
+Then launch the app:
+```sh
+open Iced-Latte.app
+```
+After the app starts you'll be prompted to grant accessibility permissions, once granted the app will continue running according to the timer.
+
+### Install
+Use the following command to auto start the app on login, replacing with the appropriate path:
+```sh
+osascript -e 'tell application "System Events" to make login item at end with properties {name:"Iced-Latte", path:"/path/to/Iced-Latte.app", hidden:false}'
 ```
