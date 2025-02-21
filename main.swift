@@ -9,7 +9,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         if let button = statusItem.button {
-            button.image = NSImage(systemSymbolName: "bolt.fill", accessibilityDescription: "Iced Latte")
+            button.image = NSImage(systemSymbolName: "cup.and.saucer.fill", accessibilityDescription: "Iced Latte")
         }
         constructMenu()
 
