@@ -7,14 +7,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var isIcedLatteEnabled = false
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-        if let button = statusItem.button {
-            button.image = NSImage(systemSymbolName: "cup.and.saucer.fill", accessibilityDescription: "Iced Latte")
-        }
-        constructMenu()
-
         // Auto enable at app startup
         isIcedLatteEnabled = true
+
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+        updateStatusBarIcon()
+        constructMenu()
+
         startTimer()
         updateMenuTitle("Disable Iced Latte")
 
@@ -39,6 +38,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc func toggleIcedLatte() {
         isIcedLatteEnabled.toggle()
+        updateStatusBarIcon()
+
         if isIcedLatteEnabled {
             startTimer()
             updateMenuTitle("Disable Iced Latte")
@@ -47,6 +48,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             updateMenuTitle("Enable Iced Latte")
         }
     }
+
+    func updateStatusBarIcon() {
+        if let button = statusItem.button {
+            let iconName = isIcedLatteEnabled ? "cup.and.saucer.fill" : "cup.and.saucer"
+            button.image = NSImage(systemSymbolName: iconName, accessibilityDescription: "Iced Latte Status")
+        }
+    }
+
 
     func updateMenuTitle(_ title: String) {
         if let menu = statusItem.menu, let firstItem = menu.item(at: 0) {
